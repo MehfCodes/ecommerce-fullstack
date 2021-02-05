@@ -45,9 +45,8 @@ class Directory extends Component{
           return(
               <div className="directory-menu">
                   {
-                      this.state.sections.map(section=>{
-                          return <MenuItem key={section.id} title={section.title}
-                          imageUrl={section.imageUrl} size={section.size} />
+                      this.state.sections.map(({id,...otherSections})=>{
+                          return <MenuItem key={id} {...otherSections} />
                       })
                   }
               </div>
