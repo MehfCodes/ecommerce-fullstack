@@ -1,11 +1,11 @@
-import Directory from '../../components/directory/directory'
-import './home.scss'
-function Home(props){
-    console.log(props);
-   return(
+import Directory from '../../components/directory/directory';
+import './home.scss';
+function Home(props) {
+  console.log(props);
+  return (
     <div className="homepage">
-    <Directory />
-</div>
-   )
+      <Directory />
+    </div>
+  );
 }
-export default Home
+export default Home;
