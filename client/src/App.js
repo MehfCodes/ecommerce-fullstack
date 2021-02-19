@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header';
 import Authentication from './pages/authentication/authentication';
@@ -40,16 +40,26 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route path="/shop/hats" component={Hats} />
           <Route path="/shop" component={Shop} />
-          <Route path="/signin" component={Authentication} />
+          <Route
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <Authentication />
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (distpatch) => ({
   setCurrentUser: (user) => distpatch(setCurrentUser(user)),
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 function Hats(props) {
   // console.log(props);
