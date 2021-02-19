@@ -28,6 +28,12 @@ class SignUp extends Component {
       );
 
       await userProfileDocument(user, { displayName });
+      this.setState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
     } catch (error) {
       console.log('error in sign up', error.message);
     }
