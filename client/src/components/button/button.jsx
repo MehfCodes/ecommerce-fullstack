@@ -1,9 +1,11 @@
 import './button.scss';
 
-function Button({ children, isGoogleSignIn, ...otherProps }) {
+function Button({ children, isGoogleSignIn, inverted, ...otherProps }) {
   return (
     <button
-      className={`custom-button ${isGoogleSignIn ? 'google-sign-in' : ''}`}
+      className={`custom-button ${isGoogleSignIn ? 'google-sign-in' : ''} ${
+        inverted ? 'inverted' : ''
+      }`}
       {...otherProps}
     >
       {children}
