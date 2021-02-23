@@ -41,7 +41,6 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/shop/hats" component={Hats} />
           <Route path="/shop" component={Shop} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
@@ -64,8 +63,3 @@ const mapDispatchToProps = (distpatch) => ({
   setCurrentUser: (user) => distpatch(setCurrentUser(user)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-function Hats(props) {
-  // console.log(props);
-  return <div>hats page</div>;
-}
