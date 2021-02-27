@@ -13,28 +13,6 @@ import { createStructuredSelector } from 'reselect';
 import CheckoutPage from './pages/checkout/checkout';
 
 class App extends Component {
-  unsubscribeFromAuth = null;
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await userProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
-
-      setCurrentUser({ userAuth });
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
   render() {
     return (
       <div>
@@ -55,11 +33,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-});
-
-const mapDispatchToProps = (distpatch) => ({
-  setCurrentUser: (user) => distpatch(setCurrentUser(user)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
