@@ -1,11 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { GlobalErrorHandler } from './controllers/error.controllers.mjs';
-import productRouters from './routers/product.routers.mjs';
-import userRouters from './routers/user.routers.mjs';
+import { config } from 'dotenv';
+import GlobalErrorHandler from './controllers/error.controllers.js';
+import productRouters from './routers/product.routers.js';
+import userRouters from './routers/user.routers.js';
 
 class App {
   constructor() {
+    config({ path: './config.env' });
     this.app = express();
     this.middlewares();
     this.connectDB();
@@ -24,7 +26,11 @@ class App {
   }
   async connectDB() {
     try {
-      await mongoose.connect('mongodb://localhost:27017/ecommerce', {
+      const DB_URL =
+        process.env.NODE_ENV === 'test'
+          ? process.env.DB_TEST_URL
+          : process.env.DB_DEV_URL;
+      await mongoose.connect(DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -43,8 +49,17 @@ class App {
     });
   }
   listen() {
-    this.app.listen(8000, () => console.log('server started on 8000 ...'));
+    const PORT =
+      process.env.NODE_ENV === 'test'
+        ? process.env.PORT_TEST
+        : process.env.PORT;
+    let ann = this.app.listen(PORT, () =>
+      console.log(`server started on 8000 in ${process.env.NODE_ENV} mood ...`)
+    );
+    return ann;
   }
 }
 
-new App().listen();
+const app = new App();
+const server = app.listen();
+export default server;
