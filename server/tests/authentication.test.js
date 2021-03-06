@@ -20,7 +20,7 @@ describe('/api/v1/users', () => {
       confirmPassword: '2020100Me',
     };
     const res = await request(server).post(`${baseUrl}/signup`).send(newUser);
-    expect(res.body.data.username).toBe('erfan');
+    expect(res.body.data.user.username).toBe('erfan');
   });
 
   it('validation error during signup', async () => {
