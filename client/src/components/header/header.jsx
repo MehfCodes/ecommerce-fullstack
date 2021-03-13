@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from './../../assets/crown.svg';
 import './header.scss';
-import { auth } from './../../firebase/firebase.util';
 import { connect } from 'react-redux';
 import CartIcon from '../cart-icon/cart-icon';
 import CartDropDown from '../cart-dropdown/cart-dropdown';
@@ -22,9 +21,7 @@ function Header({ currentUser, hidden }) {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
-            SIGN OUT
-          </div>
+          <div className="option">SIGN OUT</div>
         ) : (
           <Link className="option" to="/signin">
             SIGNIN

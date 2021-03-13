@@ -1,41 +1,31 @@
 import './sign-up.scss';
-import { auth, userProfileDocument } from './../../firebase/firebase.util';
+
 import { Component } from 'react';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
+import { signUp } from '../../utils/auth';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../../redux/user/user.actions';
 
 class SignUp extends Component {
   constructor() {
     super();
     this.state = {
-      displayName: '',
-      email: '',
+      username: '',
+      phoneNumber: '',
       password: '',
       confirmPassword: '',
     };
   }
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { displayName, email, password, confirmPassword } = this.state;
-    if (password !== confirmPassword) {
-      alert('passwords dont match');
-      return;
-    }
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await userProfileDocument(user, { displayName });
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-    } catch (error) {
-      console.log('error in sign up', error.message);
+    const { data, error } = await signUp(this.state);
+    if (!error) {
+      this.props.setCurrentUser(data.token);
+      this.props.history.push('/');
+    } else {
+      console.log(error);
     }
   };
   handleChange = (event) => {
@@ -54,18 +44,18 @@ class SignUp extends Component {
         >
           <FormInput
             type="text"
-            name="displayName"
-            value={this.state.displayName}
+            name="username"
+            value={this.state.username}
             onChange={this.handleChange}
-            label="Display Name"
+            label="Username"
             require="true"
           ></FormInput>
           <FormInput
-            type="email"
-            name="email"
-            value={this.state.email}
+            type="phoneNumber"
+            name="phoneNumber"
+            value={this.state.phoneNumber}
             onChange={this.handleChange}
-            label="Email"
+            label="Phone Number"
             require="true"
           ></FormInput>
           <FormInput
@@ -90,5 +80,7 @@ class SignUp extends Component {
     );
   }
 }
-
-export default SignUp;
+const mapDispatchToProps = (distpatch) => ({
+  setCurrentUser: (token) => distpatch(setCurrentUser(token)),
+});
+export default withRouter(connect(null, mapDispatchToProps)(SignUp));

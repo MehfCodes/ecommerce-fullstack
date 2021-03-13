@@ -1,6 +1,6 @@
 import checkout from '../../pages/checkout/checkout';
 import './checkout-item.scss';
-import { cnnect, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   cleareItemFromCart,
   addItem,

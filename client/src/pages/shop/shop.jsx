@@ -3,7 +3,7 @@ import collectionsOverview from '../../components/collections-overview/collectio
 import CollectionPage from '../collection/collection-page';
 
 function Shop({ match }) {
-  console.log(match);
+  // console.log(match);
   return (
     <div className="shop-page">
       <Route exact path={`${match.path}`} component={collectionsOverview} />
