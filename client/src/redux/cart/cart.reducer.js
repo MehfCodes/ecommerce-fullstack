@@ -1,12 +1,18 @@
 /* eslint-disable no-unreachable */
-import { cleareItemFromCart, removeItem } from './cart.actions';
+import { getItem, initialSetItem } from '../../utils/localStorage';
 import CartActionTypes from './cart.types';
-import { addItemToCart, removeItemFromCart } from './cart.util';
+import {
+  addItemToCart,
+  cleareItemFromCart,
+  removeItemFromCart,
+} from './cart.util';
 
 const INITIAL_STATE = {
-  hidden: true,
-  cartItems: [],
+  hidden: getItem('cart', 'hidden') ?? true,
+  cartItems: getItem('cart', 'cartItems') ?? [],
 };
+
+initialSetItem('cart', INITIAL_STATE);
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -34,9 +40,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
-        cartItems: state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
-        ),
+        cartItems: cleareItemFromCart(state.cartItems, action.payload),
       };
       break;
 

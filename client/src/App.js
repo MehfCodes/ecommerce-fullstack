@@ -10,16 +10,11 @@ import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions';
+import { getCookie } from './utils/cookie';
 class App extends Component {
   componentDidMount() {
-    const cookies = document.cookie;
-    if (cookies.includes('jwt')) {
-      const jwt = cookies
-        .split(';')
-        .find((cookie) => cookie.includes('jwt='))
-        .split('jwt=')[1];
-      this.props.setIsLogin(jwt);
-    }
+    const jwt = getCookie('jwt');
+    this.props.setIsLogin(jwt);
   }
   render() {
     return (
