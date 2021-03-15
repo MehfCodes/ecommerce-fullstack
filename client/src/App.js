@@ -25,7 +25,7 @@ class App extends Component {
           <Route path="/shop" component={Shop} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
-            path="/signin"
+            path="/Login"
             render={() =>
               this.props.isLogin ? <Redirect to="/" /> : <Authentication />
             }

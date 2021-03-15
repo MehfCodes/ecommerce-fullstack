@@ -14,10 +14,25 @@ function createAndSendToken(user, res) {
   user.password = undefined;
   res.status(200).json({ data: { user, token } });
 }
+
 export const signUp = catchAsync(async (req, res, next) => {
   const user = await Users.create(req.body);
   if (!user) {
-    next(new AppError('sign up failed', 400));
+    return next(new AppError('sign up failed', 400));
+  }
+  createAndSendToken(user, res);
+});
+
+export const login = catchAsync(async (req, res, next) => {
+  const { field, password } = req.body;
+  const user = await Users.findOne({
+    $or: [{ username: field }, { phoneNumber: field }],
+  }).select('+password');
+  if (!user) {
+    return next(new AppError('user not found', 404));
+  }
+  if (!(await user.comparePassword(password))) {
+    return next(new AppError('incurrect password', 401));
   }
   createAndSendToken(user, res);
 });

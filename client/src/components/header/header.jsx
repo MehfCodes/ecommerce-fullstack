@@ -23,8 +23,8 @@ function Header({ currentUser, hidden }) {
         {currentUser ? (
           <div className="option">SIGN OUT</div>
         ) : (
-          <Link className="option" to="/signin">
-            SIGNIN
+          <Link className="option" to="/Login">
+            Login
           </Link>
         )}
         <CartIcon />

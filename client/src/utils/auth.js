@@ -11,3 +11,14 @@ export async function signUp(body) {
   );
   return { data, error };
 }
+export async function Login(body) {
+  const { data, error } = await fetchAPI(
+    '/api/v1/users/login',
+    'POST',
+    {
+      'Content-Type': 'Application/json',
+    },
+    JSON.stringify(body)
+  );
+  return { data, error };
+}

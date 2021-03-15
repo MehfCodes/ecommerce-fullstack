@@ -31,6 +31,8 @@ class GlobalErrorHandler {
     }
     if (this.error.name === 'ValidationError') {
       this.validationErrorHandler();
+    } else {
+      this.sendErrorMessage(this.error.message, this.error.statusCode);
     }
   }
 }

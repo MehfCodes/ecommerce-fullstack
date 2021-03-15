@@ -1,18 +1,27 @@
 import { Component } from 'react';
 import Button from '../button/button';
 import FormInput from '../form-input/form-input';
-import './sign-in.scss';
-
-export default class SignIn extends Component {
+import './login.scss';
+import { withRouter } from 'react-router-dom';
+import { Login as SignIn } from './../../utils/auth';
+import { setCurrentUser } from '../../redux/user/user.actions';
+import { connect } from 'react-redux';
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      field: '',
       password: '',
     };
   }
   handleSubmit = async (event) => {
     event.preventDefault();
+    const { data, error } = await SignIn(this.state); //Login function
+    console.log(data);
+    if (!error) {
+      this.props.isLogin(data.token);
+      this.props.history.push('/');
+    }
   };
   handleChange = (event) => {
     const { value, name } = event.target;
@@ -20,17 +29,17 @@ export default class SignIn extends Component {
   };
   render() {
     return (
-      <div className="sign-in">
+      <div className="login">
         <h2>I already have a account</h2>
         <span>Sign in with your email and password</span>
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <FormInput
-            name="email"
-            type="email"
-            value={this.state.email}
+            name="field"
+            type="field"
+            value={this.state.field}
             required
             handleChange={this.handleChange}
-            label="email"
+            label="username or phone number"
           />
 
           <FormInput
@@ -49,3 +58,8 @@ export default class SignIn extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  isLogin: (token) => dispatch(setCurrentUser(token)),
+});
+export default withRouter(connect(null, mapDispatchToProps)(Login));

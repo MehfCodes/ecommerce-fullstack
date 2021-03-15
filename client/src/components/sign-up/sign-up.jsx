@@ -1,5 +1,4 @@
 import './sign-up.scss';
-
 import { Component } from 'react';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
