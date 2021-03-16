@@ -39,7 +39,7 @@ class Login extends Component {
             value={this.state.field}
             required
             handleChange={this.handleChange}
-            label="username or phone number"
+            label="Username or Phone Number"
           />
 
           <FormInput
@@ -48,7 +48,7 @@ class Login extends Component {
             value={this.state.password}
             required
             handleChange={this.handleChange}
-            label="password"
+            label="Password"
           />
           <div className="buttons">
             <Button type="submit">Login</Button>

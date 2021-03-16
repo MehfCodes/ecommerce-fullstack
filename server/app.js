@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 import GlobalErrorHandler from './controllers/error.controllers.js';
 import productRouters from './routers/product.routers.js';
 import userRouters from './routers/user.routers.js';
-
+// import cors from 'cors';
 class App {
   constructor() {
     config({ path: './config.env' });
@@ -19,6 +19,7 @@ class App {
     this.app.use(express.static('./public'));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    // this.app.use(cors());
   }
   routes() {
     this.app.use('/api/v1/products', productRouters);

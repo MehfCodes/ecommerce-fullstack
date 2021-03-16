@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { ReactComponent as Logo } from './../../assets/crown.svg';
 import './header.scss';
 import { connect } from 'react-redux';
@@ -7,7 +7,17 @@ import CartDropDown from '../cart-dropdown/cart-dropdown';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selector';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
-function Header({ currentUser, hidden }) {
+import { Logout } from './../../utils/auth';
+import { setCurrentUser } from '../../redux/user/user.actions';
+function Header({ currentUser, hidden, history, isLogin }) {
+  const logouHandler = async () => {
+    const { data, error } = await Logout();
+    console.log(data, error);
+    if (!error) {
+      isLogin(false);
+      history.push('/');
+    }
+  };
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -21,10 +31,12 @@ function Header({ currentUser, hidden }) {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option">SIGN OUT</div>
+          <div className="option" onClick={logouHandler}>
+            LOGOUT
+          </div>
         ) : (
           <Link className="option" to="/Login">
-            Login
+            LOGIN
           </Link>
         )}
         <CartIcon />
@@ -38,4 +50,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden,
 });
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  isLogin: (token) => dispatch(setCurrentUser(token)),
+});
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

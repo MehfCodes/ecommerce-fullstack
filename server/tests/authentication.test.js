@@ -75,4 +75,10 @@ describe('/api/v1/users', () => {
       expect(res.body.statusCode).toBe(401);
     });
   });
+  describe('/logout', () => {
+    it('logout user', async () => {
+      const res = await request(server).delete(`${baseUrl}/logout`);
+      expect(res.body.data).toBe('logout successful');
+    });
+  });
 });

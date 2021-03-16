@@ -2,6 +2,7 @@ export async function fetchAPI(url, method = 'GET', headers, body) {
   try {
     let error;
     let res = await fetch(url, {
+      mode: 'cors',
       method,
       headers,
       body,

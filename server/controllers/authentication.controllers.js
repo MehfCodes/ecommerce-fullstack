@@ -36,3 +36,8 @@ export const login = catchAsync(async (req, res, next) => {
   }
   createAndSendToken(user, res);
 });
+
+export const logout = catchAsync(async (req, res, next) => {
+  res.clearCookie('jwt');
+  res.status(200).json({ data: 'logout successful' });
+});
