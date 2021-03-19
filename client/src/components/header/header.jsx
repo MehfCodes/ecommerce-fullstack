@@ -9,6 +9,7 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { Logout } from './../../utils/auth';
 import { setCurrentUser } from '../../redux/user/user.actions';
+import avatar from './../../assets/avatar.png';
 function Header({ currentUser, hidden, history, isLogin }) {
   const logouHandler = async () => {
     const { data, error } = await Logout();
@@ -20,9 +21,18 @@ function Header({ currentUser, hidden, history, isLogin }) {
   };
   return (
     <div className="header">
-      <Link className="logo-container" to="/">
-        <Logo className="logo" />
-      </Link>
+      <div className="left-container">
+        <Link className="logo-container" to="/">
+          <Logo className="logo" />
+        </Link>
+        {currentUser && (
+          <Link to="/profile" className="avatar-container">
+            <div className="avatar">
+              <img src={avatar} alt="" />
+            </div>
+          </Link>
+        )}
+      </div>
       <div className="options">
         <Link className="option" to="/shop">
           SHOP

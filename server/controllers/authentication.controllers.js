@@ -10,6 +10,7 @@ function createAndSendToken(user, res) {
   res.cookie('jwt', token, {
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     // httpOnly: true,
+    // secure: true,
   });
   user.password = undefined;
   res.status(200).json({ data: { user, token } });

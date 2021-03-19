@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import GlobalErrorHandler from './controllers/error.controllers.js';
 import productRouters from './routers/product.routers.js';
 import userRouters from './routers/user.routers.js';
+import cookieParser from 'cookie-parser';
 // import cors from 'cors';
 class App {
   constructor() {
@@ -20,6 +21,7 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     // this.app.use(cors());
+    this.app.use(cookieParser());
   }
   routes() {
     this.app.use('/api/v1/products', productRouters);

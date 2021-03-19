@@ -1,3 +1,0 @@
-class ShoppingCart {
-  constructor() {}
-}

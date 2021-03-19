@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: {
       validator: (email) => {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        if (email !== '') {
+          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        }
       },
       message: 'please enter a valid email ',
     },

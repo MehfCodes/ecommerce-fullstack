@@ -21,12 +21,12 @@ export const isAuthenticated = catchAsync(async (req, res, next) => {
   const decoded = await verify(token, process.env.TOKEN_KEY);
 
   // is token expire?
-  if (decoded.exp < Date.now()) {
+  if (decoded.exp > Date.now()) {
     return next(new AppError('token expired', 401));
   }
 
   const currentUser = await Users.findById(decoded.id);
-  if (!user) {
+  if (!currentUser) {
     return next(
       new AppError('the user belonging to this token is not exist', 404)
     );

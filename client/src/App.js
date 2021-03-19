@@ -11,6 +11,8 @@ import { selectCurrentUser } from './redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions';
 import { getCookie } from './utils/cookie';
+import Profile from './pages/profile/profile';
+import NotAllowed from './pages/not allowed/notAllowed';
 class App extends Component {
   componentDidMount() {
     const jwt = getCookie('jwt');
@@ -29,6 +31,10 @@ class App extends Component {
             render={() =>
               this.props.isLogin ? <Redirect to="/" /> : <Authentication />
             }
+          />
+          <Route
+            path="/profile"
+            render={() => (this.props.isLogin ? <Profile /> : <NotAllowed />)}
           />
         </Switch>
       </div>

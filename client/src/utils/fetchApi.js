@@ -1,8 +1,12 @@
-export async function fetchAPI(url, method = 'GET', headers, body) {
+export async function fetchAPI(
+  url,
+  headers = { 'Content-Type': 'application/json' },
+  method = 'GET',
+  body
+) {
   try {
     let error;
     let res = await fetch(url, {
-      mode: 'cors',
       method,
       headers,
       body,
@@ -13,6 +17,6 @@ export async function fetchAPI(url, method = 'GET', headers, body) {
     }
     return { data: res.data, error };
   } catch (error) {
-    return { error };
+    return { data: null, error };
   }
 }
