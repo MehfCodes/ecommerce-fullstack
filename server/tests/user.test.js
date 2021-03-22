@@ -22,6 +22,17 @@ describe('/api/v1/users', () => {
     const res = await request(server).post(`${baseUrl}/login`).send(user);
     return res.body.data.token;
   }
+
+  describe('/', () => {
+    it('get All Users', async () => {
+      const token = await login();
+      const res = await request(server)
+        .get(`${baseUrl}`)
+        .set('authorization', `Bearer ${token}`);
+      expect(res.body.data.length).not.toBe(0);
+    });
+  });
+
   describe('/profile', () => {
     it('get user profile', async () => {
       const token = await login();
@@ -45,6 +56,17 @@ describe('/api/v1/users', () => {
   });
 
   describe('/profile/update', () => {
+    it('ERROR : user wants to change password', async () => {
+      const token = await login();
+      const update = { password: '123456789' };
+      const res = await request(server)
+        .patch(`${baseUrl}/profile/update`)
+        .send(update)
+        .set('authorization', `Bearer ${token}`);
+      // console.log(res.body);
+      expect(res.body.statusCode).toBe(400);
+    });
+
     it('update user profile', async () => {
       const token = await login();
       const update = { username: 'john' };

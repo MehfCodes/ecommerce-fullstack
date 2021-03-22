@@ -5,10 +5,15 @@ import {
   signUp,
 } from '../controllers/authentication.controllers.js';
 import { isAuthenticated } from '../controllers/middleware.controllers.js';
-import { getUser, updateUser } from '../controllers/user.controllers.js';
+import {
+  getAllUsers,
+  getUser,
+  updateUser,
+} from '../controllers/user.controllers.js';
 
 const router = Router();
 
+router.get('/', isAuthenticated, getAllUsers);
 router.post('/signup', signUp);
 router.post('/login', login);
 router.delete('/logout', logout);
