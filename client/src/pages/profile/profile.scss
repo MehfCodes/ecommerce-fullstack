@@ -7,25 +7,33 @@
 
   .profile-menu {
     border-right: 1px solid rgba(221, 219, 219, 0.438);
-    width: 12%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
 
     .menu-option {
-      width: 100%;
+      width: 85%;
       height: 10%;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
-      //   border-bottom: 1px solid blue;
+      // border-bottom: 1px solid blue;
+      padding: 10px;
       &:hover {
         cursor: pointer;
+        // border: 1px solid gray;
+        box-shadow: 0 0 6px 1px rgb(201, 194, 194);
+        border-radius: 5px;
       }
       .menu-option-title {
-        width: 45%;
+        width: 95%;
         text-align: center;
         // border: 1px solid green;
+        font-weight: 600;
+        margin-left: 10px;
       }
     }
   }
@@ -52,10 +60,12 @@
         //   border: 1px solid red;
         width: 350px;
         height: 70px;
+        font-family: 'Lato', sans-serif;
 
         .field-title {
           font-size: 13px;
           text-transform: capitalize;
+          color: rgb(87, 84, 84);
         }
         .field-content {
           // border: 1px solid rebeccapurple;
@@ -73,6 +83,13 @@
     button {
       width: 120px;
       margin-top: auto;
+    }
+    .buttons {
+      width: 35%;
+      // border: 1px solid red;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
     }
   }
 }

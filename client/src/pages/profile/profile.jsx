@@ -56,7 +56,7 @@ class Profile extends Component {
     return (
       <div className="profile-container">
         <div className="profile-menu">
-          <h3>user profile</h3>
+          <h2>user profile</h2>
           <span className="menu-option">
             <FaUserAlt size={12} />
             <span className="menu-option-title">user info</span>
@@ -98,7 +98,15 @@ class Profile extends Component {
               Edit
             </Button>
           ) : (
-            <Button onClick={this.updateUser}>update</Button>
+            <div className="buttons">
+              <Button onClick={this.updateUser}>update</Button>
+              <Button
+                onClick={() => this.setState({ isEdit: false })}
+                inverted={true}
+              >
+                cancel
+              </Button>
+            </div>
           )}
         </div>
       </div>

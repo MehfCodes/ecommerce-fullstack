@@ -1,3 +1,25 @@
+@mixin button_style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+
+  .suggest {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    // border: 1px solid red;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+
+    span {
+      cursor: pointer;
+      color: #007bff;
+    }
+  }
+}
+
 .login {
   width: 400px;
   display: flex;
@@ -7,7 +29,6 @@
     margin: 10px 0;
   }
   .buttons {
-    display: flex;
-    justify-content: space-between;
+    @include button_style();
   }
 }

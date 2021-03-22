@@ -1,3 +1,4 @@
+@import './../login/login.scss';
 .sign-up {
   display: flex;
   flex-direction: column;
@@ -5,5 +6,8 @@
 
   .title {
     margin: 10px 0;
+  }
+  .buttons {
+    @include button_style();
   }
 }

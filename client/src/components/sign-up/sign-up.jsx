@@ -73,10 +73,12 @@ class SignUp extends Component {
             label="Confirm Password"
             require="true"
           ></FormInput>
-          <Button type="submit">SIGN UP</Button>
-          <div className="">
-            Do you have an account?{' '}
-            <span onClick={() => this.props.showSignUpHandler()}>Login</span>
+          <div className="buttons">
+            <Button type="submit">SIGN UP</Button>
+            <div className="suggest">
+              Do you have an account?{' '}
+              <span onClick={() => this.props.showSignUpHandler()}>Login</span>
+            </div>
           </div>
         </form>
       </div>
