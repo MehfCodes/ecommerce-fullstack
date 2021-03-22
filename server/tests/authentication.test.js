@@ -9,7 +9,7 @@ describe('/api/v1/users', () => {
   });
   afterAll(async () => {
     server.close();
-    await Users.deleteMany();
+    // await Users.deleteMany();
   });
 
   describe('/signup', () => {

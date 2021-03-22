@@ -21,7 +21,7 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    const { data, error } = await fetchAPI('/api/v1/users/me');
+    const { data, error } = await fetchAPI('/api/v1/users/profile');
     if (!error) {
       delete data.__v;
       delete data.createdAt;
@@ -42,7 +42,7 @@ class Profile extends Component {
 
   updateUser = async () => {
     const { data, error } = await fetchAPI(
-      '/api/v1/users/me/update',
+      '/api/v1/users/profile/update',
       { 'Content-Type': 'application/json' },
       'PATCH',
       JSON.stringify(this.state.user)

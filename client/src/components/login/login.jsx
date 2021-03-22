@@ -10,17 +10,20 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      field: '',
-      password: '',
+      user: { field: '', password: '' },
+      error: null,
     };
   }
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { data, error } = await SignIn(this.state); //Login function
-    console.log(data);
+    const { data, error } = await SignIn(this.state.user); //Login function
+    // console.log(data);
     if (!error) {
       this.props.isLogin(data.token);
       this.props.history.push('/');
+    } else {
+      console.log(error);
+      this.setState({ error });
     }
   };
   handleChange = (event) => {
@@ -34,21 +37,23 @@ class Login extends Component {
         <span>Sign in with your email and password</span>
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <FormInput
-            name="field"
-            type="field"
-            value={this.state.field}
-            required
             handleChange={this.handleChange}
             label="Username or Phone Number"
+            name="field"
+            type="field"
+            value={this.state.user.field}
+            // required
+            error={this.error ? true : null}
           />
 
           <FormInput
-            name="password"
-            type="password"
-            value={this.state.password}
-            required
             handleChange={this.handleChange}
             label="Password"
+            name="password"
+            type="password"
+            value={this.state.user.password}
+            // required
+            error={this.error ? true : null}
           />
           <div className="buttons">
             <Button type="submit">Login</Button>

@@ -12,6 +12,6 @@ const router = Router();
 router.post('/signup', signUp);
 router.post('/login', login);
 router.delete('/logout', logout);
-router.get('/me', isAuthenticated, getUser);
-router.patch('/me/update', isAuthenticated, updateUser);
+router.get('/profile', isAuthenticated, getUser);
+router.patch('/profile/update', isAuthenticated, updateUser);
 export default router;
