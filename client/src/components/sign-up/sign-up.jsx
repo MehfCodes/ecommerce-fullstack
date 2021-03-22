@@ -34,8 +34,8 @@ class SignUp extends Component {
   render() {
     return (
       <div className="sign-up">
-        <h2 className="title">I do not have a account</h2>
-        <span>Sign up with your email and password</span>
+        <h2 className="title">Sign up with your email and password</h2>
+        {/* <span>Sign up with your email and password</span> */}
         <form
           onSubmit={this.handleSubmit}
           className="sign-up-form"
@@ -74,6 +74,10 @@ class SignUp extends Component {
             require="true"
           ></FormInput>
           <Button type="submit">SIGN UP</Button>
+          <div className="">
+            Do you have an account?{' '}
+            <span onClick={() => this.props.showSignUpHandler()}>Login</span>
+          </div>
         </form>
       </div>
     );

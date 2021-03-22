@@ -10,9 +10,7 @@ function FormInput({ handleChange, label, ...otherProps }) {
         style={error && { borderColor: '#ff0000' }}
       />
       {label ? (
-        <label
-          className={`${value.length > 0 ? 'shrink' : ''} form-input-label`}
-        >
+        <label className={`${value.length ? 'shrink' : ''} form-input-label`}>
           {label}
         </label>
       ) : null}

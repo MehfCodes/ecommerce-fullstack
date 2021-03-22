@@ -28,13 +28,16 @@ class Login extends Component {
   };
   handleChange = (event) => {
     const { value, name } = event.target;
-    this.setState({ [name]: value });
+    this.setState((st) => {
+      st.user[name] = value;
+      return st;
+    });
   };
   render() {
     return (
       <div className="login">
-        <h2>I already have a account</h2>
-        <span>Sign in with your email and password</span>
+        <h2>Sign in with your email and password</h2>
+        {/* <span>Sign in with your email and password</span> */}
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <FormInput
             handleChange={this.handleChange}
@@ -57,6 +60,12 @@ class Login extends Component {
           />
           <div className="buttons">
             <Button type="submit">Login</Button>
+            <div className="">
+              Do not have an account?{' '}
+              <span onClick={() => this.props.showSignUpHandler()}>
+                Sign Up
+              </span>
+            </div>
           </div>
         </form>
       </div>
