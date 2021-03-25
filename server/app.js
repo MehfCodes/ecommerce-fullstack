@@ -58,7 +58,9 @@ class App {
         ? process.env.PORT_TEST
         : process.env.PORT;
     let ann = this.app.listen(PORT, () =>
-      console.log(`server started on 8000 in ${process.env.NODE_ENV} mood ...`)
+      console.log(
+        `server started on ${PORT} in ${process.env.NODE_ENV} mood ...`
+      )
     );
     return ann;
   }

@@ -1,29 +1,23 @@
-import productModel from '../model/product.model.js';
+import Products from '../model/product.model.js';
+import { AppError } from '../utils/appError.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
-export async function createProduct(req, res) {
-  try {
-    const product = await productModel.create(req.body);
-    if (!product) {
-      res.json({ statusCode: 406, message: 'محصول ساخته نشد' });
-    }
-    res.status(200).json({
-      data: product,
-    });
-  } catch (error) {
-    console.log(error);
+export const createProduct = catchAsync(async (req, res, next) => {
+  const product = await Products.create(req.body);
+  if (!product) {
+    return next(new AppError('creation of the product failed', 406));
   }
-}
+  res.status(200).json({
+    data: product,
+  });
+});
 
-export async function getAllProducts(req, res) {
-  try {
-    const products = await productModel.find();
-    if (products.length === 0) {
-      res.json({ statusCode: 404, message: 'محصولی یافت نشد' });
-    }
-    res.status(200).json({
-      data: products,
-    });
-  } catch (error) {
-    console.log(error);
+export const getAllProducts = catchAsync(async (req, res, next) => {
+  const products = await Products.find();
+  if (products.length === 0) {
+    return next(new AppError('there is no products', 404));
   }
-}
+  res.status(200).json({
+    data: products,
+  });
+});
