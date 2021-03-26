@@ -47,7 +47,8 @@ class App {
 
   errorsHandler() {
     this.app.use((error, req, res, next) => {
-      // res.json({ error, customMessage: error.message });
+      // console.log(error);
+      // res.json({ error, customMessage: error.message, name: error.name });
       new GlobalErrorHandler(error, res);
       next();
     });

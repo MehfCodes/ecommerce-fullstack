@@ -4,14 +4,23 @@ import Users from './../model/user.model.js';
 
 describe('/api/v1/users', () => {
   let server;
+  let token;
   const baseUrl = '/api/v1/users';
 
   beforeEach(() => {
     server = App;
   });
+  beforeAll(async () => {
+    const user = {
+      field: 'erfan',
+      password: '2020100Me',
+    };
+    const res = await request(App).post('/api/v1/users/login').send(user);
+    token = res.body.data.token;
+  });
   afterAll(async () => {
     server.close();
-    await Users.deleteMany();
+    await Users.deleteMany({});
   });
 
   async function login() {
@@ -20,12 +29,13 @@ describe('/api/v1/users', () => {
       password: '2020100Me',
     };
     const res = await request(server).post(`${baseUrl}/login`).send(user);
+    // console.log(res.body);
     return res.body.data.token;
   }
 
   describe('/', () => {
     it('get All Users', async () => {
-      const token = await login();
+      // const token = await login();
       const res = await request(server)
         .get(`${baseUrl}`)
         .set('authorization', `Bearer ${token}`);
@@ -35,7 +45,7 @@ describe('/api/v1/users', () => {
 
   describe('/profile', () => {
     it('get user profile', async () => {
-      const token = await login();
+      // const token = await login();
       const res = await request(server)
         .get(`${baseUrl}/profile`)
         .set('authorization', `Bearer ${token}`);
@@ -57,7 +67,7 @@ describe('/api/v1/users', () => {
 
   describe('/profile/update', () => {
     it('ERROR : user wants to change password', async () => {
-      const token = await login();
+      // const token = await login();
       const update = { password: '123456789' };
       const res = await request(server)
         .patch(`${baseUrl}/profile/update`)
@@ -68,14 +78,14 @@ describe('/api/v1/users', () => {
     });
 
     it('update user profile', async () => {
-      const token = await login();
-      const update = { username: 'john' };
+      // const token = await login();
+      const update = { phoneNumber: '09122240246' };
       const res = await request(server)
         .patch(`${baseUrl}/profile/update`)
         .send(update)
         .set('authorization', `Bearer ${token}`);
-      //   console.log(res.body);
-      expect(res.body.data.username).toBe('john');
+      // console.log(res.body);
+      expect(res.body.data.phoneNumber).toBe('09122240246');
     });
   });
 });

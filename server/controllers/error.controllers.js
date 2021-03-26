@@ -24,13 +24,22 @@ class GlobalErrorHandler {
     let errorMessages = Object.keys(err).map((key) => err[key].message);
     this.sendErrorMessage(errorMessages.join(','), 400);
   }
-
+  castErrorHandler() {
+    const err = this.error;
+    this.sendErrorMessage(
+      `invalid ${err.kind} for value ${err.value} at path ${err.path}`,
+      400
+    );
+  }
   checkError() {
     if (this.error.code === 11000) {
       this.duplicateFieldInDB();
     }
     if (this.error.name === 'ValidationError') {
       this.validationErrorHandler();
+    }
+    if (this.error.name === 'CastError') {
+      this.castErrorHandler();
     } else {
       this.sendErrorMessage(this.error.message, this.error.statusCode);
     }
