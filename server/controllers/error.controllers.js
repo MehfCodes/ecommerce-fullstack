@@ -19,11 +19,13 @@ class GlobalErrorHandler {
       this.sendErrorMessage('this username is already exist', 406);
     }
   }
+
   validationErrorHandler() {
     const err = this.error.errors;
     let errorMessages = Object.keys(err).map((key) => err[key].message);
     this.sendErrorMessage(errorMessages.join(','), 400);
   }
+
   castErrorHandler() {
     const err = this.error;
     this.sendErrorMessage(
@@ -31,15 +33,25 @@ class GlobalErrorHandler {
       400
     );
   }
+
+  jwtExpiredErrorHandler() {
+    this.sendErrorMessage('your token has expired! please login again.', 401);
+  }
+
+  invalidTokenErrorHandler() {
+    this.sendErrorMessage('invalid token. please login again!', 401);
+  }
   checkError() {
     if (this.error.code === 11000) {
       this.duplicateFieldInDB();
-    }
-    if (this.error.name === 'ValidationError') {
+    } else if (this.error.name === 'ValidationError') {
       this.validationErrorHandler();
-    }
-    if (this.error.name === 'CastError') {
+    } else if (this.error.name === 'CastError') {
       this.castErrorHandler();
+    } else if (this.error.name === 'TokenExpiredError') {
+      this.jwtExpiredErrorHandler();
+    } else if (this.error.name === 'JsonWebTokenError') {
+      this.invalidTokenErrorHandler();
     } else {
       this.sendErrorMessage(this.error.message, this.error.statusCode);
     }
